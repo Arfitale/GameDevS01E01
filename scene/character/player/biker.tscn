@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://7b54mr5josvu"]
+
+[ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
+[ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gpojh"]
+atlas = ExtResource("1_4mf2g")
+region = Rect2(0, 480, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ietbt"]
+atlas = ExtResource("1_4mf2g")
+region = Rect2(48, 480, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvh6h"]
+atlas = ExtResource("1_4mf2g")
+region = Rect2(96, 480, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0qg4"]
+atlas = ExtResource("1_4mf2g")
+region = Rect2(144, 480, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tb2r0"]
+atlas = ExtResource("1_4mf2g")
+region = Rect2(192, 480, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xipa"]
+atlas = ExtResource("1_4mf2g")
+region = Rect2(240, 480, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8j0l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpojh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ietbt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvh6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0qg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tb2r0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xipa")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_21p5o"]
+size = Vector2(20, 32)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_6nd4r")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_h8j0l")
+animation = &"run"
+frame = 2
+frame_progress = 0.296152
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_21p5o")

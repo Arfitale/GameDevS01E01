@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://od363n22ywy5"]
+[gd_scene load_steps=4 format=3 uid="uid://c7852nakrsmk7"]
 
-[ext_resource type="Script" path="res://logic/character/main_player.gd" id="1_8y1oo"]
 [ext_resource type="Texture2D" uid="uid://c00p3m6qt4ww5" path="res://store/character/unknown.svg" id="1_fqydh"]
+[ext_resource type="Script" path="res://logic/character/player.gd" id="1_mqx3m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7wqpe"]
 size = Vector2(63, 64)
 
 [node name="MainPlayer" type="CharacterBody2D"]
 position = Vector2(65, 0)
-script = ExtResource("1_8y1oo")
+script = ExtResource("1_mqx3m")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-31.5, 31.5)
