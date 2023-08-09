@@ -1,13 +1,24 @@
 extends CharacterBody2D
 class_name Player
 
+enum player_state {IDLE, RUN}
+
 var gravity: float = 980.0
 var speed: float = 200.0
 var jump_impulse: float = -300.0
+var state = player_state.RUN
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _physics_process(delta) -> void:
+	match state:
+		player_state.IDLE: state_idle()
+		player_state.RUN: state_run(delta)
+	
+func state_idle() -> void:
+	pass
+
+func state_run(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
 	
 	# apply gravity
@@ -29,6 +40,7 @@ func _physics_process(delta) -> void:
 		jump(jump_impulse) 
 	
 	move_and_slide()
+
 
 func jump(_jump_impulse: float) -> void:
 	velocity.y += _jump_impulse
