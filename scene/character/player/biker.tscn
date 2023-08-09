@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=11 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
@@ -132,9 +132,27 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_pg8v8"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yg8xw"]
 _data = {
 "RESET": SubResource("Animation_0etrq"),
+"idle": SubResource("Animation_pg8v8"),
 "idle_left": SubResource("Animation_vbcnl"),
 "idle_right": SubResource("Animation_7okly"),
 "run_left": SubResource("Animation_begpb"),

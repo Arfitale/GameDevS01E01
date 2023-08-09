@@ -12,11 +12,25 @@ var state = player_state.RUN
 
 func _physics_process(delta) -> void:
 	match state:
-		player_state.IDLE: state_idle()
+		player_state.IDLE: state_idle(delta)
 		player_state.RUN: state_run(delta)
 	
-func state_idle() -> void:
-	pass
+func state_idle(delta: float) -> void:
+	var direction: Vector2 = Vector2.ZERO
+	direction.x = Input.get_axis('move_left', 'move_right')
+	
+	# apply gravity
+	if !is_on_floor():
+		velocity.y += gravity * delta
+	
+	if direction.x == 0:
+		animation_player.play('idle')
+	
+	# Exit Idle state to Run state
+	else: 
+		state = player_state.RUN
+	
+	move_and_slide()
 
 func state_run(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
@@ -32,8 +46,11 @@ func state_run(delta: float) -> void:
 		
 		# Handle run animation
 		handle_run_anim(direction.x)
+	
+	# Exit Run state to Idle state
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+		state = player_state.IDLE
 	
 	# handle jump
 	if is_on_floor() && Input.is_action_pressed("jump"):
