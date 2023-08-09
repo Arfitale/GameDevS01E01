@@ -1,71 +1,165 @@
-[gd_scene load_steps=11 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=10 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gpojh"]
-atlas = ExtResource("1_4mf2g")
-region = Rect2(0, 480, 48, 48)
+[sub_resource type="Animation" id="Animation_0etrq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ietbt"]
-atlas = ExtResource("1_4mf2g")
-region = Rect2(48, 480, 48, 48)
+[sub_resource type="Animation" id="Animation_w4ccl"]
+resource_name = "run_right"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 83, 84, 85]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yvh6h"]
-atlas = ExtResource("1_4mf2g")
-region = Rect2(96, 480, 48, 48)
+[sub_resource type="Animation" id="Animation_begpb"]
+resource_name = "run_left"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [80, 81, 82, 83, 84, 85]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j0qg4"]
-atlas = ExtResource("1_4mf2g")
-region = Rect2(144, 480, 48, 48)
+[sub_resource type="Animation" id="Animation_7okly"]
+resource_name = "idle_right"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tb2r0"]
-atlas = ExtResource("1_4mf2g")
-region = Rect2(192, 480, 48, 48)
+[sub_resource type="Animation" id="Animation_vbcnl"]
+resource_name = "idle_left"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6xipa"]
-atlas = ExtResource("1_4mf2g")
-region = Rect2(240, 480, 48, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_h8j0l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gpojh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ietbt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yvh6h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j0qg4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tb2r0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6xipa")
-}],
-"loop": true,
-"name": &"run",
-"speed": 5.0
-}]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yg8xw"]
+_data = {
+"RESET": SubResource("Animation_0etrq"),
+"idle_left": SubResource("Animation_vbcnl"),
+"idle_right": SubResource("Animation_7okly"),
+"run_left": SubResource("Animation_begpb"),
+"run_right": SubResource("Animation_w4ccl")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21p5o"]
-size = Vector2(20, 32)
+size = Vector2(20, 31)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_6nd4r")
 
-[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_h8j0l")
-animation = &"run"
-frame = 2
-frame_progress = 0.296152
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_4mf2g")
+hframes = 8
+vframes = 12
+frame = 56
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yg8xw")
+}
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_21p5o")
 
 [node name="Camera" type="Camera2D" parent="."]
