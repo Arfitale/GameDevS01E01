@@ -83,17 +83,36 @@ func state_jump(delta: float) -> void:
 	
 	move_and_slide()
 	
-	print(velocity.y)
+	# Check if player is fall
+	if velocity.y > 0:
+		# Exit state to Fall state
+		state = player_state.FALL
+		animation_player.play('fall')
+	
+
+
+func state_fall(delta: float) -> void:
+	var _direction: Vector2 = Vector2.ZERO
+	_direction.x = get_x_direction()
+
+	# Apply gravity	
+	if !is_on_floor():
+		velocity.y += gravity * delta
+		
+	if _direction.x != 0:
+		velocity.x = speed * _direction.x
+		set_sprite_face(is_face_right(_direction.x))
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, speed)
+		
+	move_and_slide()
 	
 	if is_on_floor():
 		# Exit state to Idle when player doesn't move
-		if direction.x == 0:
+		if _direction.x == 0:
 			state = player_state.IDLE
 		else:
 			state = player_state.RUN
-
-func state_fall(delta: float) -> void:
-	pass
 
 func is_face_right(_horizon_direction: int) -> bool:
 	return true if _horizon_direction > 0 else false 
