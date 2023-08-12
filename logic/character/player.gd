@@ -9,7 +9,7 @@ var speed: float = 200.0
 var jump_impulse: float = -300.0
 
 # Entity State
-var state = player_state.RUN
+var state = player_state.IDLE
 var was_on_air: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -28,8 +28,8 @@ func state_idle(delta: float) -> void:
 	direction.x = get_x_direction()
 	
 	# apply gravity
-	if !is_on_floor():
-		velocity.y += gravity * delta
+	if is_on_air():
+		return handle_fall_state()
 	
 	if direction.x == 0:
 		if was_on_air:
@@ -53,8 +53,9 @@ func state_run(delta: float) -> void:
 	direction.x = get_x_direction()
 	
 	# apply gravity
-	if !is_on_floor():
-		velocity.y += gravity * delta
+	if is_on_air():
+		handle_fall_state()
+		return
 	
 	if direction.x != 0:
 		velocity.x = speed * direction.x
@@ -78,7 +79,7 @@ func state_jump(delta: float) -> void:
 	direction.x = get_x_direction()
 	
 	# apply gravity
-	if !is_on_floor():
+	if is_on_air():
 		velocity.y += gravity * delta
 	
 	if direction.x != 0:
@@ -103,7 +104,7 @@ func state_fall(delta: float) -> void:
 	_direction.x = get_x_direction()
 
 	# Apply gravity	
-	if !is_on_floor():
+	if is_on_air():
 		velocity.y += gravity * delta
 		
 	if _direction.x != 0:
@@ -144,3 +145,8 @@ func jump() -> void:
 
 func set_sprite_face(_is_face_right: bool = true) -> void:
 	sprite.flip_h = !_is_face_right
+
+func handle_fall_state() -> void:
+	was_on_air = true
+	state = player_state.FALL
+	animation_player.play('fall')
