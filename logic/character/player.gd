@@ -6,7 +6,7 @@ const state_debug = {0: 'Idle', 1: 'Run', 2: 'Jump', 3: 'Fall'}
 
 var gravity: float = 980.0
 var speed: float = 200.0
-var jump_impulse: float = -300.0
+var jump_impulse: float = -350.0
 
 # Entity State
 var state = player_state.IDLE

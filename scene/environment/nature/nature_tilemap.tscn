@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://338bn6ch41i5" path="res://store/environment/nature/nature_packed.png" id="1_wkqb2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h84lb"]
+resource_name = "NaturePacked"
 texture = ExtResource("1_wkqb2")
 texture_region_size = Vector2i(48, 48)
 use_texture_padding = false
@@ -495,3 +496,10 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
+layer_3/name = "UnreactPlatformer"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 0
+layer_3/tile_data = PackedInt32Array()
