@@ -14,6 +14,10 @@ var was_on_air: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite
+@onready var remote_camera: RemoteTransform2D = $RemoteCamera
+
+func _ready() -> void:
+	pass
 
 func _physics_process(delta) -> void:
 #	print(state_debug[state])
@@ -97,8 +101,6 @@ func state_jump(delta: float) -> void:
 		was_on_air = true
 		animation_player.play('fall')
 	
-
-
 func state_fall(delta: float) -> void:
 	var _direction: Vector2 = Vector2.ZERO
 	_direction.x = get_x_direction()
@@ -150,3 +152,7 @@ func handle_fall_state() -> void:
 	was_on_air = true
 	state = player_state.FALL
 	animation_player.play('fall')
+
+func connect_camera(_camera: Camera2D) -> void:
+	var camera_path: NodePath = _camera.get_path()
+	remote_camera.remote_path = camera_path
