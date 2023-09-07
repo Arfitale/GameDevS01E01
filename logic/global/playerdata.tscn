@@ -4,3 +4,5 @@
 
 [node name="PlayerData" type="Node2D"]
 script = ExtResource("1_wixto")
+
+[connection signal="update_score" from="." to="." method="_on_update_score"]

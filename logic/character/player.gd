@@ -158,5 +158,7 @@ func connect_camera(_camera: Camera2D) -> void:
 	remote_camera.remote_path = camera_path
 	
 func _on_sensor_detect(area: Area2D) -> void:
+	# player collect coin
 	if area is Coin:
-		pass
+		Playerdata.collect_coin(1)
+		print(Playerdata.gamedata.score)

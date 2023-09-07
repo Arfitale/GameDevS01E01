@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.1", "GL Compatibility")
 
 [autoload]
 
-Playerdata="*res://logic/global/playerdata.gd"
+Playerdata="*res://logic/global/playerdata.tscn"
 
 [input]
 
