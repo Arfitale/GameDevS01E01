@@ -156,3 +156,7 @@ func handle_fall_state() -> void:
 func connect_camera(_camera: Camera2D) -> void:
 	var camera_path: NodePath = _camera.get_path()
 	remote_camera.remote_path = camera_path
+	
+func _on_sensor_detect(area: Area2D) -> void:
+	if area is Coin:
+		pass

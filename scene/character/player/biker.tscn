@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=16 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
+[ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_xbsqm"]
 
 [sub_resource type="Animation" id="Animation_0etrq"]
 length = 0.001
@@ -225,7 +226,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21p5o"]
 size = Vector2(20, 31)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ts3u5"]
+size = Vector2(20, 31)
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_6nd4r")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -243,4 +248,18 @@ libraries = {
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_21p5o")
 
+[node name="Collisions" type="Node2D" parent="."]
+
+[node name="ObjectSensor" parent="Collisions" instance=ExtResource("3_xbsqm")]
+collision_mask = 1
+
+[node name="CollisionShape" parent="Collisions/ObjectSensor" index="0"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_ts3u5")
+debug_color = Color(0.533333, 0.411765, 1, 0.419608)
+
 [node name="RemoteCamera" type="RemoteTransform2D" parent="."]
+
+[connection signal="area_entered" from="Collisions/ObjectSensor" to="." method="_on_sensor_detect"]
+
+[editable path="Collisions/ObjectSensor"]
