@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://baiahkq1hmnv6"]
+[gd_scene load_steps=6 format=3 uid="uid://baiahkq1hmnv6"]
 
 [ext_resource type="Script" path="res://logic/world/world.gd" id="1_cmmug"]
 [ext_resource type="PackedScene" uid="uid://bt7oeosxpuagl" path="res://scene/environment/nature/nature_tilemap.tscn" id="1_w5k7d"]
 [ext_resource type="PackedScene" uid="uid://7b54mr5josvu" path="res://scene/character/player/biker.tscn" id="2_8l43d"]
+[ext_resource type="Script" path="res://logic/world/camera.gd" id="4_am7mv"]
+[ext_resource type="PackedScene" uid="uid://c68teq3ijr52c" path="res://scene/environment/object/coin.tscn" id="5_3ykhs"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_cmmug")
@@ -21,5 +23,50 @@ layer_3/tile_data = PackedInt32Array(524335, 196610, 7, 524336, 65538, 7, 524339
 [node name="Player" parent="PlayerNode" instance=ExtResource("2_8l43d")]
 position = Vector2(192, 96)
 
+[node name="EnvNode" type="Node2D" parent="."]
+
+[node name="Coins" type="Node2D" parent="EnvNode"]
+
+[node name="Coin" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(672, 246)
+metadata/_edit_group_ = true
+
+[node name="Coin2" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(720, 246)
+metadata/_edit_group_ = true
+
+[node name="Coin3" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(768, 246)
+metadata/_edit_group_ = true
+
+[node name="Coin7" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(1392, 294)
+metadata/_edit_group_ = true
+
+[node name="Coin8" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(1440, 294)
+metadata/_edit_group_ = true
+
+[node name="Coin9" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(1488, 294)
+metadata/_edit_group_ = true
+
+[node name="Coin4" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(2496, 246)
+metadata/_edit_group_ = true
+
+[node name="Coin5" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(2112, 342)
+metadata/_edit_group_ = true
+
+[node name="Coin6" parent="EnvNode/Coins" instance=ExtResource("5_3ykhs")]
+position = Vector2(2304, 288)
+metadata/_edit_group_ = true
+
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, -2)
+limit_left = 96
+limit_top = -336
+limit_right = 4608
+limit_bottom = 768
+script = ExtResource("4_am7mv")
