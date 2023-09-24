@@ -63,6 +63,7 @@ _data = {
 size = Vector2(34, 22)
 
 [node name="Hyena" type="CharacterBody2D"]
+collision_layer = 4
 script = ExtResource("1_4gdyk")
 
 [node name="Sprite" type="Sprite2D" parent="."]
