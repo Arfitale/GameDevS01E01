@@ -9,7 +9,7 @@ var gravity: float = 980.0
 
 # Hyena stats
 var _state = hyena_state.IDLE
-var detect_target_data: Dictionary = {'entity': null}
+var detector_data: Dictionary = {'playerSensor': null}
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite
@@ -22,39 +22,32 @@ func _physics_process(delta: float) -> void:
 func state_idle(_delta: float) -> void:
 	animation_player.play('idle')
 
-func state_chase(_delta: float) -> void:
-	var _entity: CharacterBody2D = detect_target_data['entity']
-	var _current_position: Vector2 = self.global_position
-	var _entity_position: Vector2 = _entity.global_position
-	
-	# Determine position of hyena againts entity target
-	var _horizon_direction: float = -1.0 if _current_position.x > _entity_position.x else 1.0
-	
-	# Get distance of Hyena to entity object
-	var _distance = abs(_current_position.distance_squared_to(_entity_position))
-	var _distance_limit: float = 1024.0
-	
-	# Check if Hyena is near Entity, So Hyena can stop chase
-	if _distance > _distance_limit:
-		animation_player.play('run')
-		velocity.x = move_speed * _horizon_direction
-		sprite.flip_h = true if _horizon_direction > 0 else false
-	else:
-		velocity.x = move_toward(velocity.x, 0.0, move_speed)
-		animation_player.play('idle')
-	
+	velocity.x = move_toward(velocity.x, 0, move_speed)
+	velocity.y += gravity * _delta
 	move_and_slide()
+
+func state_chase(_delta: float) -> void:
+	var _player: CharacterBody2D = detector_data['playerSensor']
 	
-
-func _on_entity_entered(body: Node2D) -> void:
-	if body is Player:
-		if body.is_on_floor():
-			detect_target_data['entity'] = body
-			_state = hyena_state.CHASE
-
-
-func _on_entity_exited(body: Node2D) -> void:
-	if body is Player:
-		detect_target_data['entity'] = null
-		_state = hyena_state.IDLE
+	if _player.is_on_floor():
+		var _distance: float = self.global_position.distance_to(_player.global_position)
+		var _direction: float = round(self.global_position.direction_to(_player.global_position).x)
 		
+		if _distance > 32:
+			velocity.x = move_speed * _direction
+		else:
+			velocity.x = move_toward(velocity.x, 0, move_speed)
+	
+	velocity.y += gravity * _delta
+	move_and_slide()
+
+func on_entity_detected(body: Node2D) -> void:
+	if body is Player:
+		detector_data['playerSensor'] = body
+		_state = hyena_state.CHASE
+
+
+func on_entity_exited(body: Node2D) -> void:
+	if body is Player:
+		detector_data['playerSensor'] = null
+		_state = hyena_state.IDLE

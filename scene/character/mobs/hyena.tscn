@@ -90,15 +90,14 @@ shape = SubResource("RectangleShape2D_hpjcr")
 
 [node name="Collisions" type="Node2D" parent="."]
 
-[node name="ObjectSensor" parent="Collisions" instance=ExtResource("3_n75nn")]
+[node name="PlayerSensor" parent="Collisions" instance=ExtResource("3_n75nn")]
 collision_mask = 2
 
-[node name="CollisionShape" parent="Collisions/ObjectSensor" index="0"]
+[node name="CollisionShape" parent="Collisions/PlayerSensor" index="0"]
 shape = SubResource("RectangleShape2D_j612e")
 debug_color = Color(0.956863, 0, 0.541176, 0.419608)
 
-[connection signal="player_detected" from="." to="." method="_on_player_detected"]
-[connection signal="body_entered" from="Collisions/ObjectSensor" to="." method="_on_entity_entered"]
-[connection signal="body_exited" from="Collisions/ObjectSensor" to="." method="_on_entity_exited"]
+[connection signal="body_entered" from="Collisions/PlayerSensor" to="." method="on_entity_detected"]
+[connection signal="body_exited" from="Collisions/PlayerSensor" to="." method="on_entity_exited"]
 
-[editable path="Collisions/ObjectSensor"]
+[editable path="Collisions/PlayerSensor"]
