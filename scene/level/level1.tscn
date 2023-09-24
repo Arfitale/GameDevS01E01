@@ -1,4 +1,5 @@
 [gd_scene load_steps=8 format=3 uid="uid://baiahkq1hmnv6"]
+[gd_scene load_steps=7 format=3 uid="uid://baiahkq1hmnv6"]
 
 [ext_resource type="Script" path="res://logic/world/world.gd" id="1_cmmug"]
 [ext_resource type="PackedScene" uid="uid://bt7oeosxpuagl" path="res://scene/environment/nature/nature_tilemap.tscn" id="1_w5k7d"]
