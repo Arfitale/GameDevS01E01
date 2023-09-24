@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx27lswqgb1tt"]
+[gd_scene load_steps=10 format=3 uid="uid://cx27lswqgb1tt"]
 
 [ext_resource type="Script" path="res://logic/character/hyena.gd" id="1_4gdyk"]
 [ext_resource type="Texture2D" uid="uid://cm7kjtk2oqt7k" path="res://store/character/hyena_packed.png" id="2_cvjhc"]
+[ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_n75nn"]
 
 [sub_resource type="Animation" id="Animation_nj0tn"]
 length = 0.001
@@ -62,6 +63,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpjcr"]
 size = Vector2(34, 22)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j612e"]
+size = Vector2(322, 20)
+
 [node name="Hyena" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_4gdyk")
@@ -85,3 +89,16 @@ shape = SubResource("RectangleShape2D_hpjcr")
 [node name="Camera" type="Camera2D" parent="."]
 
 [node name="Collisions" type="Node2D" parent="."]
+
+[node name="ObjectSensor" parent="Collisions" instance=ExtResource("3_n75nn")]
+collision_mask = 2
+
+[node name="CollisionShape" parent="Collisions/ObjectSensor" index="0"]
+shape = SubResource("RectangleShape2D_j612e")
+debug_color = Color(0.956863, 0, 0.541176, 0.419608)
+
+[connection signal="player_detected" from="." to="." method="_on_player_detected"]
+[connection signal="body_entered" from="Collisions/ObjectSensor" to="." method="_on_entity_entered"]
+[connection signal="body_exited" from="Collisions/ObjectSensor" to="." method="_on_entity_exited"]
+
+[editable path="Collisions/ObjectSensor"]
