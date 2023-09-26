@@ -33,8 +33,11 @@ func state_chase(_delta: float) -> void:
 		var _distance: float = self.global_position.distance_to(_player.global_position)
 		var _direction: float = round(self.global_position.direction_to(_player.global_position).x)
 		
+		
 		if _distance > 32:
 			velocity.x = move_speed * _direction
+			animation_player.play('run')
+			sprite.flip_h = true if _direction > 0 else false
 		else:
 			velocity.x = move_toward(velocity.x, 0, move_speed)
 	
