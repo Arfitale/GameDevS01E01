@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2ap0dlrndqvc"]
+
+[ext_resource type="Script" path="res://logic/world/level_shifter.gd" id="1_yasce"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yd3dk"]
+size = Vector2(57, 144)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t0kqi"]
+lifetime_randomness = 0.2
+emission_shape = 3
+emission_box_extents = Vector3(0, 75, 0)
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(-100, 0, 0)
+initial_velocity_min = -5.0
+initial_velocity_max = 5.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 720.0
+scale_max = 4.0
+
+[node name="LevelShifter" type="Area2D"]
+collision_layer = 33
+collision_mask = 2
+script = ExtResource("1_yasce")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(28.5, -72)
+shape = SubResource("RectangleShape2D_yd3dk")
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+position = Vector2(0, -78)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_t0kqi")
+lifetime = 2.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
