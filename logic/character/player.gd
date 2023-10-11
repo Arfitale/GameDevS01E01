@@ -161,4 +161,3 @@ func _on_sensor_detect(area: Area2D) -> void:
 	# player collect coin
 	if area is Coin:
 		Playerdata.collect_coin(1)
-		print(Playerdata.gamedata.score)
