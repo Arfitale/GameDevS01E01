@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://baiahkq1hmnv6"]
+[gd_scene load_steps=9 format=3 uid="uid://baiahkq1hmnv6"]
 
 [ext_resource type="Script" path="res://logic/world/world.gd" id="1_cmmug"]
 [ext_resource type="PackedScene" uid="uid://bt7oeosxpuagl" path="res://scene/environment/nature/nature_tilemap.tscn" id="1_w5k7d"]
@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://logic/world/camera.gd" id="4_am7mv"]
 [ext_resource type="PackedScene" uid="uid://c68teq3ijr52c" path="res://scene/environment/object/coin.tscn" id="5_3ykhs"]
 [ext_resource type="PackedScene" uid="uid://b2ap0dlrndqvc" path="res://scene/level/LevelLogic/level_shifter.tscn" id="6_aylbr"]
-[ext_resource type="PackedScene" uid="uid://crbxj0tp7ov0w" path="res://scene/level/level2.tscn" id="7_bjbhi"]
 [ext_resource type="PackedScene" uid="uid://cx27lswqgb1tt" path="res://scene/character/mobs/hyena.tscn" id="6_hasaf"]
+[ext_resource type="PackedScene" uid="uid://bewngaa5y4pl2" path="res://scene/level/level2.tscn" id="7_bjbhi"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_cmmug")
@@ -77,5 +77,6 @@ script = ExtResource("4_am7mv")
 [node name="LevelShifter" parent="." instance=ExtResource("6_aylbr")]
 position = Vector2(4608, 240)
 next_level = ExtResource("7_bjbhi")
+
 [node name="Hyena" parent="." instance=ExtResource("6_hasaf")]
 position = Vector2(984, 274)

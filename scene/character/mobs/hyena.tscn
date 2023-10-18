@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cx27lswqgb1tt"]
+[gd_scene load_steps=11 format=3 uid="uid://cx27lswqgb1tt"]
 
 [ext_resource type="Script" path="res://logic/character/hyena.gd" id="1_4gdyk"]
 [ext_resource type="Texture2D" uid="uid://cm7kjtk2oqt7k" path="res://store/character/hyena_packed.png" id="2_cvjhc"]
@@ -66,6 +66,9 @@ size = Vector2(34, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j612e"]
 size = Vector2(322, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3jpx"]
+size = Vector2(52, 20)
+
 [node name="Hyena" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_4gdyk")
@@ -97,7 +100,17 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_j612e")
 debug_color = Color(0.956863, 0, 0.541176, 0.419608)
 
+[node name="AttackSensor" parent="Collisions" instance=ExtResource("3_n75nn")]
+collision_mask = 2
+
+[node name="CollisionShape" parent="Collisions/AttackSensor" index="0"]
+shape = SubResource("RectangleShape2D_u3jpx")
+debug_color = Color(0.941176, 0, 0, 0.419608)
+
 [connection signal="body_entered" from="Collisions/PlayerSensor" to="." method="on_entity_detected"]
 [connection signal="body_exited" from="Collisions/PlayerSensor" to="." method="on_entity_exited"]
+[connection signal="body_entered" from="Collisions/AttackSensor" to="." method="_on_attack_sensor_body_entered"]
+[connection signal="body_exited" from="Collisions/AttackSensor" to="." method="_on_attack_sensor_body_exited"]
 
 [editable path="Collisions/PlayerSensor"]
+[editable path="Collisions/AttackSensor"]
