@@ -124,7 +124,7 @@ func state_fall(delta: float) -> void:
 		else:
 			state = player_state.RUN
 			# set was_on_air to false directly because player try to run on land state after fall
-			was_on_air = false
+		was_on_air = false
 
 func is_face_right(_horizon_direction: int) -> bool:
 	return true if _horizon_direction > 0 else false 

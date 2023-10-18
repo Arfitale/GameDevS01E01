@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://logic/world/camera.gd" id="4_am7mv"]
 [ext_resource type="PackedScene" uid="uid://c68teq3ijr52c" path="res://scene/environment/object/coin.tscn" id="5_3ykhs"]
 [ext_resource type="PackedScene" uid="uid://b2ap0dlrndqvc" path="res://scene/level/LevelLogic/level_shifter.tscn" id="6_aylbr"]
-[ext_resource type="PackedScene" uid="uid://crbxj0tp7ov0w" path="res://scene/level/level2.tscn" id="7_bjbhi"]
+[ext_resource type="PackedScene" uid="uid://bewngaa5y4pl2" path="res://scene/level/level2.tscn" id="7_bjbhi"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_cmmug")
