@@ -31,21 +31,21 @@ func state_chase(_delta: float) -> void:
 	var _player: CharacterBody2D = detector_data['playerSensor']
 	
 	if _player.is_on_floor():
-		var _distance: float = self.global_position.distance_to(_player.global_position)
 		var _direction: float = round(self.global_position.direction_to(_player.global_position).x)
-		
-		if _distance > 32:
-			velocity.x = move_speed * _direction
-			animation_player.play('run')
-			sprite.flip_h = true if _direction > 0 else false
-		else:
-			velocity.x = move_toward(velocity.x, 0, move_speed)
+		velocity.x = move_speed * _direction
+		animation_player.play('run')
+		sprite.flip_h = true if _direction > 0 else false
 	
 	velocity.y += gravity * _delta
 	move_and_slide()
 
 func state_attack(_delta: float) -> void:
-	animation_player.play('idle')
+	var _player: CharacterBody2D = detector_data['attackSensor']
+	
+	if sprite.flip_h:
+		animation_player.play('basic_attack_right')
+	else:
+		animation_player.play('basic_attack_left')
 	
 	velocity.x = move_toward(velocity.x, 0, move_speed)
 	velocity.y += gravity * _delta
