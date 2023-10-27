@@ -8,6 +8,9 @@ signal depleted
 @onready var current_hp: int = max_health : set = set_current_hp
 
 func _ready() -> void:
+	health_init()
+
+func health_init() -> void:
 	emit_signal('max_health_changed', max_health)
 	emit_signal('changed', current_hp)
 

@@ -1,14 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkfodfqo2rkpi"]
+[gd_scene load_steps=7 format=3 uid="uid://dkfodfqo2rkpi"]
 
+[ext_resource type="Script" path="res://logic/world/GameWorld.gd" id="1_hvlxt"]
 [ext_resource type="Script" path="res://logic/world/world.gd" id="1_pnq43"]
 [ext_resource type="PackedScene" uid="uid://bt7oeosxpuagl" path="res://scene/environment/nature/nature_tilemap.tscn" id="1_sn54q"]
 [ext_resource type="PackedScene" uid="uid://7b54mr5josvu" path="res://scene/character/player/biker.tscn" id="2_r4y3s"]
 [ext_resource type="PackedScene" uid="uid://cdgh74hlbwgna" path="res://scene/UI/game_ui.tscn" id="4_prl5m"]
 [ext_resource type="PackedScene" uid="uid://cen18h6uuil65" path="res://scene/sys/health/health_bar.tscn" id="5_au76t"]
 
-[node name="Game" type="Node2D"]
+[node name="GameWorld" type="Node2D"]
+script = ExtResource("1_hvlxt")
 
-[node name="WorldLayer" type="CanvasGroup" parent="."]
+[node name="WorldLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
 
 [node name="World" type="Node2D" parent="WorldLayer"]
 script = ExtResource("1_pnq43")
@@ -25,13 +28,12 @@ layer_0/tile_data = PackedInt32Array(524286, 131074, 1, 589822, 131074, 1, 65535
 
 [node name="Camera" type="Camera2D" parent="WorldLayer/World"]
 
-[node name="UILayer" type="CanvasGroup" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="GameUI" parent="UILayer" instance=ExtResource("4_prl5m")]
 
-[node name="HealthBarLayer" type="CanvasLayer" parent="UILayer/GameUI"]
-
-[node name="HealthBar" parent="UILayer/GameUI/HealthBarLayer" instance=ExtResource("5_au76t")]
+[node name="HealthBar" parent="UILayer/GameUI" instance=ExtResource("5_au76t")]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 45.0
 offset_right = 334.0

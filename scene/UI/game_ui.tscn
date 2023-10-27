@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cdgh74hlbwgna"]
+[gd_scene load_steps=2 format=3 uid="uid://cdgh74hlbwgna"]
+
+[ext_resource type="PackedScene" uid="uid://cen18h6uuil65" path="res://scene/sys/health/health_bar.tscn" id="1_40atn"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -7,3 +9,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="HealthBar" parent="." instance=ExtResource("1_40atn")]
+layout_mode = 1
+anchor_left = 0.0217014
+anchor_top = 0.0246914
+anchor_right = 0.195313
+anchor_bottom = 0.0478395

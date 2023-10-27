@@ -8,6 +8,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -26,17 +27,21 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="HealthBar" type="ProgressBar"]
-offset_right = 286.0
-offset_bottom = 27.0
+anchors_preset = -1
+anchor_right = 0.173611
+anchor_bottom = 0.0231481
 theme_override_styles/background = SubResource("StyleBoxFlat_ep5ps")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ssxc6")
 step = 1.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="HealthIllust" type="TextureRect" parent="."]
 layout_mode = 1
-offset_left = -38.0
-offset_top = -36.0
-offset_right = 43.0
-offset_bottom = 45.0
+offset_left = -16.0
+offset_top = -13.0
+offset_right = 22.0
+offset_bottom = 25.0
 texture = ExtResource("1_dke5i")
+expand_mode = 1
+stretch_mode = 3
