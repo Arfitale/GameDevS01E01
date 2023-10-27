@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0wdi5gkmrwsy"]
+[gd_scene load_steps=9 format=3 uid="uid://c0wdi5gkmrwsy"]
 
 [ext_resource type="Script" path="res://logic/world/GameWorld.gd" id="1_3hxia"]
 [ext_resource type="Script" path="res://logic/world/world.gd" id="1_pjek4"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://logic/world/camera.gd" id="5_woi66"]
 [ext_resource type="PackedScene" uid="uid://b2ap0dlrndqvc" path="res://scene/level/LevelLogic/level_shifter.tscn" id="6_4i41f"]
 [ext_resource type="PackedScene" uid="uid://cdgh74hlbwgna" path="res://scene/UI/game_ui.tscn" id="7_281o5"]
-[ext_resource type="PackedScene" uid="uid://cen18h6uuil65" path="res://scene/sys/health/health_bar.tscn" id="8_ih57u"]
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource("1_3hxia")
@@ -139,10 +138,3 @@ position = Vector2(4608, 384)
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="GameUI" parent="UILayer" instance=ExtResource("7_281o5")]
-
-[node name="HealthBar2" parent="UILayer/GameUI" instance=ExtResource("8_ih57u")]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 45.0
-offset_right = 334.0
-offset_bottom = 72.0
