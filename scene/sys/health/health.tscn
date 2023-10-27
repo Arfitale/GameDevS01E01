@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://64i03hce5w0n"]
+
+[ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_controller.tscn" id="1_p2wto"]
+[ext_resource type="PackedScene" uid="uid://cen18h6uuil65" path="res://scene/sys/health/health_bar.tscn" id="2_5ow83"]
+
+[node name="Health" type="Node2D"]
+
+[node name="HealthController" parent="." instance=ExtResource("1_p2wto")]
+
+[node name="HealthBar" parent="." instance=ExtResource("2_5ow83")]
+
+[connection signal="changed" from="HealthController" to="HealthBar" method="set_value"]
+[connection signal="max_health_changed" from="HealthController" to="HealthBar" method="set_max"]

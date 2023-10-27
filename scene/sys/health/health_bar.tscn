@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cen18h6uuil65"]
+
+[ext_resource type="Texture2D" uid="uid://dhfgk5xfygvxe" path="res://store/UI/health.png" id="1_dke5i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ep5ps"]
+bg_color = Color(0.301961, 0, 0.0313726, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssxc6"]
+bg_color = Color(0.952941, 0, 0.188235, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="HealthBar" type="ProgressBar"]
+offset_right = 286.0
+offset_bottom = 27.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ep5ps")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ssxc6")
+step = 1.0
+show_percentage = false
+
+[node name="HealthIllust" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = -38.0
+offset_top = -36.0
+offset_right = 43.0
+offset_bottom = 45.0
+texture = ExtResource("1_dke5i")
