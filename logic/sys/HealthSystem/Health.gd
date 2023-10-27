@@ -1,4 +1,5 @@
 extends Node2D
+class_name HealthSystem
 
 signal max_health_changed
 signal changed

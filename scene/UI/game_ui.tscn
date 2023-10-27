@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdgh74hlbwgna"]
 
-[ext_resource type="PackedScene" uid="uid://cen18h6uuil65" path="res://scene/sys/health/health_bar.tscn" id="1_40atn"]
+[ext_resource type="PackedScene" uid="uid://cen18h6uuil65" path="res://scene/sys/health/player_health_bar.tscn" id="1_40atn"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3

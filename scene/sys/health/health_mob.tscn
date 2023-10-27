@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://byuekpepsqm53"]
+
+[ext_resource type="Script" path="res://logic/sys/HealthSystem/HealthMobs.gd" id="1_envue"]
+[ext_resource type="PackedScene" uid="uid://mepo0mojautk" path="res://scene/sys/health/mob_health_bar.tscn" id="2_b7rjt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkhlk"]
+bg_color = Color(0.301961, 0, 0.0313726, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8haq"]
+bg_color = Color(0.145098, 1, 0.356863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Health" type="Node2D"]
+position = Vector2(0, -23)
+script = ExtResource("1_envue")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_b7rjt")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -24.0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = 3.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_fkhlk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h8haq")
+
+[node name="ShowTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="changed" from="." to="HealthBar" method="set_value"]
+[connection signal="max_health_changed" from="." to="HealthBar" method="set_max"]
+[connection signal="timeout" from="ShowTimer" to="." method="_on_show_timer_timeout"]

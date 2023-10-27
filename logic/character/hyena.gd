@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal player_detected
+signal take_damage
 
 enum hyena_state {IDLE, CHASE, WANDER, ATTACK}
 

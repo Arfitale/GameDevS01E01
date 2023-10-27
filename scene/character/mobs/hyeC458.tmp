@@ -1,9 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cx27lswqgb1tt"]
+[gd_scene load_steps=18 format=3 uid="uid://cx27lswqgb1tt"]
 
 [ext_resource type="Script" path="res://logic/character/hyena.gd" id="1_4gdyk"]
 [ext_resource type="Texture2D" uid="uid://cm7kjtk2oqt7k" path="res://store/character/hyena_packed.png" id="2_cvjhc"]
 [ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_n75nn"]
-[ext_resource type="PackedScene" uid="uid://byuekpepsqm53" path="res://scene/sys/health/health_mob.tscn" id="4_unxmo"]
+[ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_controller.tscn" id="4_jsi78"]
+[ext_resource type="PackedScene" uid="uid://mepo0mojautk" path="res://scene/sys/health/mob_health_bar.tscn" id="5_01mga"]
+[ext_resource type="Script" path="res://logic/sys/HealthSystem/HealthMobs.gd" id="5_jlgr1"]
 
 [sub_resource type="Animation" id="Animation_nj0tn"]
 length = 0.001
@@ -140,6 +142,26 @@ size = Vector2(322, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u3jpx"]
 size = Vector2(40, 20)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkhlk"]
+bg_color = Color(0.301961, 0, 0.0313726, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8haq"]
+bg_color = Color(0.145098, 1, 0.356863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="Hyena" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_4gdyk")
@@ -187,13 +209,35 @@ one_shot = true
 wait_time = 1.5
 one_shot = true
 
-[node name="Health" parent="." instance=ExtResource("4_unxmo")]
+[node name="Health" parent="." instance=ExtResource("4_jsi78")]
+position = Vector2(0, -23)
+script = ExtResource("5_jlgr1")
+
+[node name="HealthBar" parent="Health" instance=ExtResource("5_01mga")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -24.0
+offset_top = -3.0
+offset_right = 24.0
+offset_bottom = 3.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_fkhlk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h8haq")
+
+[node name="ShowTimer" type="Timer" parent="Health"]
+wait_time = 2.0
+one_shot = true
 
 [connection signal="body_entered" from="Sensor/PlayerSensor" to="." method="on_entity_detected"]
 [connection signal="body_exited" from="Sensor/PlayerSensor" to="." method="on_entity_exited"]
 [connection signal="body_entered" from="Sensor/AttackSensor" to="." method="_on_attack_sensor_body_entered"]
 [connection signal="body_exited" from="Sensor/AttackSensor" to="." method="_on_attack_sensor_body_exited"]
 [connection signal="timeout" from="Timers/ChaseDelayTimer" to="." method="_on_chase_delay_timer_timeout"]
+[connection signal="changed" from="Health" to="Health/HealthBar" method="set_value"]
+[connection signal="max_health_changed" from="Health" to="Health/HealthBar" method="set_max"]
+[connection signal="timeout" from="Health/ShowTimer" to="Health" method="_on_show_timer_timeout"]
 
 [editable path="Sensor/PlayerSensor"]
 [editable path="Sensor/AttackSensor"]
