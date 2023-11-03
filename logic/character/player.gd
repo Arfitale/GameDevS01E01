@@ -16,18 +16,18 @@ var was_on_air: bool = false
 @onready var sprite: Sprite2D = $Sprite
 @onready var remote_camera: RemoteTransform2D = $RemoteCamera
 @onready var health: HealthSystem = $HealthController
+@onready var hitbox: Hitbox = $Hitboxes/PlayerHitbox
 
 func _ready() -> void:
 	pass
 
 func _physics_process(delta) -> void:
-#	print(state_debug[state])
 	match state:
 		player_state.IDLE: state_idle(delta)
 		player_state.RUN: state_run(delta)
 		player_state.JUMP: state_jump(delta)
 		player_state.FALL: state_fall(delta)
-	
+
 func state_idle(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
 	direction.x = get_x_direction()
@@ -163,10 +163,9 @@ func _on_sensor_detect(area: Area2D) -> void:
 	if area is Coin:
 		Playerdata.collect_coin(1)
 
-
 func _on_player_hitbox_area_entered(area: Area2D) -> void:
 	if area.entity == 'mobs':
-		health.current_hp -= 2
+		health.current_hp -= area.damage
 
 func _on_health_depleted() -> void:
 	queue_free()
