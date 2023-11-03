@@ -15,6 +15,7 @@ var was_on_air: bool = false
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = $Sprite
 @onready var remote_camera: RemoteTransform2D = $RemoteCamera
+@onready var health: HealthSystem = $HealthController
 
 func _ready() -> void:
 	pass
@@ -161,3 +162,11 @@ func _on_sensor_detect(area: Area2D) -> void:
 	# player collect coin
 	if area is Coin:
 		Playerdata.collect_coin(1)
+
+
+func _on_player_hitbox_area_entered(area: Area2D) -> void:
+	if area.entity == 'mobs':
+		health.current_hp -= 2
+
+func _on_health_depleted() -> void:
+	queue_free()

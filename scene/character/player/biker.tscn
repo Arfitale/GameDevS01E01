@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=19 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
-[ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_controller.tscn" id="2_a7h8k"]
+[ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_system.tscn" id="2_a7h8k"]
 [ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_xbsqm"]
+[ext_resource type="PackedScene" uid="uid://c5fhp5gv84lby" path="res://scene/sys/hitbox.tscn" id="5_qpa7r"]
 
 [sub_resource type="Animation" id="Animation_0etrq"]
 length = 0.001
@@ -230,6 +231,9 @@ size = Vector2(20, 31)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ts3u5"]
 size = Vector2(20, 31)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbmrj"]
+size = Vector2(16, 31)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_6nd4r")
@@ -248,21 +252,33 @@ libraries = {
 }
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_21p5o")
 
-[node name="Collisions" type="Node2D" parent="."]
+[node name="Hitboxes" type="Node2D" parent="."]
 
-[node name="ObjectSensor" parent="Collisions" instance=ExtResource("3_xbsqm")]
+[node name="ObjectSensor" parent="Hitboxes" instance=ExtResource("3_xbsqm")]
+visible = false
 collision_mask = 1
 
-[node name="CollisionShape" parent="Collisions/ObjectSensor" index="0"]
+[node name="CollisionShape" parent="Hitboxes/ObjectSensor" index="0"]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_ts3u5")
 debug_color = Color(0.533333, 0.411765, 1, 0.419608)
 
+[node name="PlayerHitbox" parent="Hitboxes" instance=ExtResource("5_qpa7r")]
+entity = "player"
+
+[node name="CollisionShape" parent="Hitboxes/PlayerHitbox" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_lbmrj")
+
 [node name="RemoteCamera" type="RemoteTransform2D" parent="."]
 
-[connection signal="area_entered" from="Collisions/ObjectSensor" to="." method="_on_sensor_detect"]
+[connection signal="depleted" from="HealthController" to="." method="_on_health_depleted"]
+[connection signal="area_entered" from="Hitboxes/ObjectSensor" to="." method="_on_sensor_detect"]
+[connection signal="area_entered" from="Hitboxes/PlayerHitbox" to="." method="_on_player_hitbox_area_entered"]
 
-[editable path="Collisions/ObjectSensor"]
+[editable path="Hitboxes/ObjectSensor"]
+[editable path="Hitboxes/PlayerHitbox"]

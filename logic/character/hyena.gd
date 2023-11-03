@@ -7,6 +7,7 @@ enum hyena_state {IDLE, CHASE, WANDER, ATTACK}
 
 var move_speed: float = 150.0
 var gravity: float = 980.0
+var is_enemy: bool = true
 
 # Hyena stats
 var _state = hyena_state.IDLE
