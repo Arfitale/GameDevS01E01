@@ -1,10 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=21 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
 [ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_system.tscn" id="2_a7h8k"]
+[ext_resource type="Shader" path="res://logic/shader/effect.gdshader" id="3_k5gak"]
 [ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_xbsqm"]
 [ext_resource type="PackedScene" uid="uid://c5fhp5gv84lby" path="res://scene/sys/hitbox.tscn" id="5_qpa7r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_se383"]
+shader = ExtResource("3_k5gak")
+shader_parameter/white_color_effect = false
 
 [sub_resource type="Animation" id="Animation_0etrq"]
 length = 0.001
@@ -241,6 +246,7 @@ script = ExtResource("1_6nd4r")
 [node name="HealthController" parent="." instance=ExtResource("2_a7h8k")]
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_se383")
 texture = ExtResource("1_4mf2g")
 hframes = 8
 vframes = 12
