@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=24 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
@@ -230,6 +230,44 @@ _data = {
 "run_right": SubResource("Animation_w4ccl")
 }
 
+[sub_resource type="Animation" id="Animation_drgx7"]
+resource_name = "invincible"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material:shader_parameter/white_color_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_udrdo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:material:shader_parameter/white_color_effect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8u8bg"]
+_data = {
+"RESET": SubResource("Animation_udrdo"),
+"invincible": SubResource("Animation_drgx7")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_21p5o"]
 size = Vector2(20, 31)
 
@@ -257,6 +295,11 @@ libraries = {
 "": SubResource("AnimationLibrary_yg8xw")
 }
 
+[node name="EffectPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8u8bg")
+}
+
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, 1.5)
@@ -275,6 +318,7 @@ debug_color = Color(0.533333, 0.411765, 1, 0.419608)
 
 [node name="PlayerHitbox" parent="Hitboxes" instance=ExtResource("5_qpa7r")]
 entity = "player"
+overlap_detection = true
 
 [node name="CollisionShape" parent="Hitboxes/PlayerHitbox" index="0"]
 position = Vector2(0, 0.5)
@@ -282,9 +326,16 @@ shape = SubResource("RectangleShape2D_lbmrj")
 
 [node name="RemoteCamera" type="RemoteTransform2D" parent="."]
 
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="InvincibleTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[connection signal="invincible" from="." to="." method="_on_invincible"]
 [connection signal="depleted" from="HealthController" to="." method="_on_health_depleted"]
 [connection signal="area_entered" from="Hitboxes/ObjectSensor" to="." method="_on_sensor_detect"]
 [connection signal="area_entered" from="Hitboxes/PlayerHitbox" to="." method="_on_player_hitbox_area_entered"]
+[connection signal="timeout" from="Timers/InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
 
 [editable path="Hitboxes/ObjectSensor"]
 [editable path="Hitboxes/PlayerHitbox"]

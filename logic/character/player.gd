@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+signal invincible
+
 enum player_state {IDLE, RUN, JUMP, FALL}
 const state_debug = {0: 'Idle', 1: 'Run', 2: 'Jump', 3: 'Fall'}
 
@@ -13,13 +15,12 @@ var state = player_state.IDLE
 var was_on_air: bool = false
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var effect_player: AnimationPlayer = $EffectPlayer
 @onready var sprite: Sprite2D = $Sprite
 @onready var remote_camera: RemoteTransform2D = $RemoteCamera
 @onready var health: HealthSystem = $HealthController
 @onready var hitbox: Hitbox = $Hitboxes/PlayerHitbox
-
-func _ready() -> void:
-	pass
+@onready var invincible_timer: Timer = $Timers/InvincibleTimer
 
 func _physics_process(delta) -> void:
 	match state:
@@ -164,8 +165,16 @@ func _on_sensor_detect(area: Area2D) -> void:
 		Playerdata.collect_coin(1)
 
 func _on_player_hitbox_area_entered(area: Area2D) -> void:
-	if area.entity == 'mobs':
+	if area.entity == 'mobs' && invincible_timer.is_stopped():
+		emit_signal('invincible')
 		health.current_hp -= area.damage
 
 func _on_health_depleted() -> void:
 	queue_free()
+
+func _on_invincible() -> void:
+	invincible_timer.start()
+	effect_player.play('invincible')
+
+func _on_invincible_timer_timeout() -> void:
+	effect_player.play('RESET')
