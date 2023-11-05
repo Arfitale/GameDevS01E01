@@ -1,16 +1,20 @@
-[gd_scene load_steps=25 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=29 format=3 uid="uid://7b54mr5josvu"]
 
-[ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
-[ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
-[ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_system.tscn" id="2_a7h8k"]
-[ext_resource type="Shader" path="res://logic/shader/effect.gdshader" id="3_k5gak"]
-[ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_xbsqm"]
-[ext_resource type="PackedScene" uid="uid://dfk557gq7vvey" path="res://scene/sys/hurtbox.tscn" id="6_0evge"]
+[ext_resource type="Script" path="res://logic/character/player.gd" id="1_oc8ns"]
+[ext_resource type="PackedScene" uid="uid://bke6ld8wx5jho" path="res://scene/sys/health/health_system.tscn" id="2_5rt3j"]
+[ext_resource type="Shader" path="res://logic/shader/effect.gdshader" id="3_8241o"]
+[ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="4_o5b0l"]
+[ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="5_ewjwg"]
+[ext_resource type="PackedScene" uid="uid://dfk557gq7vvey" path="res://scene/sys/hurtbox.tscn" id="6_8w7ko"]
+[ext_resource type="PackedScene" uid="uid://c5fhp5gv84lby" path="res://scene/sys/hitbox.tscn" id="7_cueiy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_se383"]
-shader = ExtResource("3_k5gak")
+shader = ExtResource("3_8241o")
 shader_parameter/hit_effect = false
 shader_parameter/hit_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dofqk"]
+size = Vector2(8, 6.23709)
 
 [sub_resource type="Animation" id="Animation_0etrq"]
 length = 0.001
@@ -37,6 +41,42 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [65]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:shape")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_dofqk")]
 }
 
 [sub_resource type="Animation" id="Animation_27s0n"]
@@ -234,9 +274,115 @@ tracks/0/keys = {
 "values": [32, 33, 34, 35, 36, 37]
 }
 
+[sub_resource type="Animation" id="Animation_003yp"]
+resource_name = "basic_attack_right"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(10, -4.15806), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5ke4t"]
+resource_name = "basic_attack_left"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-10, -4.158), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yg8xw"]
 _data = {
 "RESET": SubResource("Animation_0etrq"),
+"basic_attack_left": SubResource("Animation_5ke4t"),
+"basic_attack_right": SubResource("Animation_003yp"),
 "death": SubResource("Animation_tsuih"),
 "fall": SubResource("Animation_27s0n"),
 "idle": SubResource("Animation_pg8v8"),
@@ -298,13 +444,13 @@ size = Vector2(13, 25.5927)
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(1, 0.961988)
 collision_layer = 2
-script = ExtResource("1_6nd4r")
+script = ExtResource("1_oc8ns")
 
-[node name="HealthController" parent="." instance=ExtResource("2_a7h8k")]
+[node name="HealthController" parent="." instance=ExtResource("2_5rt3j")]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_se383")
-texture = ExtResource("1_4mf2g")
+texture = ExtResource("4_o5b0l")
 hframes = 8
 vframes = 12
 frame = 65
@@ -326,7 +472,7 @@ shape = SubResource("RectangleShape2D_21p5o")
 
 [node name="Hitboxes" type="Node2D" parent="."]
 
-[node name="ObjectSensor" parent="Hitboxes" instance=ExtResource("3_xbsqm")]
+[node name="ObjectSensor" parent="Hitboxes" instance=ExtResource("5_ewjwg")]
 collision_mask = 1
 
 [node name="CollisionShape" parent="Hitboxes/ObjectSensor" index="0"]
@@ -334,7 +480,7 @@ position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_ts3u5")
 debug_color = Color(0.533333, 0.411765, 1, 0.419608)
 
-[node name="Hurtbox" parent="Hitboxes" instance=ExtResource("6_0evge")]
+[node name="Hurtbox" parent="Hitboxes" instance=ExtResource("6_8w7ko")]
 entity = "player"
 overlap_detection = true
 
@@ -343,6 +489,14 @@ position = Vector2(1.5, 2.79636)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wgm8f")
 debug_color = Color(0.968627, 0, 0, 0.419608)
+
+[node name="BasicAttackHitbox" parent="Hitboxes" instance=ExtResource("7_cueiy")]
+
+[node name="CollisionShape" parent="Hitboxes/BasicAttackHitbox" index="0"]
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_dofqk")
+disabled = true
+debug_color = Color(0, 1, 1, 0.419608)
 
 [node name="RemoteCamera" type="RemoteTransform2D" parent="."]
 
@@ -359,3 +513,4 @@ one_shot = true
 
 [editable path="Hitboxes/ObjectSensor"]
 [editable path="Hitboxes/Hurtbox"]
+[editable path="Hitboxes/BasicAttackHitbox"]
