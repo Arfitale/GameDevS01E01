@@ -87,3 +87,6 @@ func _on_attack_sensor_body_exited(body: Node2D) -> void:
 func _on_chase_delay_timer_timeout() -> void:
 	if detector_data['playerSensor']:
 		_state = hyena_state.CHASE
+
+func _on_health_depleted() -> void:
+	pass # Replace with function body.

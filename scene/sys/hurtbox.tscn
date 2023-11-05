@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfk557gq7vvey"]
+
+[ext_resource type="Script" path="res://logic/sys/hurtbox.gd" id="1_hj20o"]
+
+[node name="Hurtbox" type="Area2D"]
+collision_layer = 16
+collision_mask = 8
+script = ExtResource("1_hj20o")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+debug_color = Color(0.976471, 0, 0, 0.419608)
+
+[node name="TriggerDelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="TriggerDelay" to="." method="_on_trigger_delay_timeout"]

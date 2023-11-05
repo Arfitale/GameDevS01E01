@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://cx27lswqgb1tt"]
+[gd_scene load_steps=18 format=3 uid="uid://cx27lswqgb1tt"]
 
 [ext_resource type="Script" path="res://logic/character/hyena.gd" id="1_4gdyk"]
 [ext_resource type="Texture2D" uid="uid://cm7kjtk2oqt7k" path="res://store/character/hyena_packed.png" id="2_cvjhc"]
 [ext_resource type="PackedScene" uid="uid://b0ycv46b3ulpf" path="res://scene/character/props/object_sensor.tscn" id="3_n75nn"]
 [ext_resource type="PackedScene" uid="uid://c5fhp5gv84lby" path="res://scene/sys/hitbox.tscn" id="4_fbpm3"]
+[ext_resource type="PackedScene" uid="uid://dfk557gq7vvey" path="res://scene/sys/hurtbox.tscn" id="4_pwkfg"]
 [ext_resource type="PackedScene" uid="uid://byuekpepsqm53" path="res://scene/sys/health/health_mob.tscn" id="4_unxmo"]
 
 [sub_resource type="Animation" id="Animation_nj0tn"]
@@ -141,8 +142,11 @@ size = Vector2(322, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u3jpx"]
 size = Vector2(40, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nf1lj"]
-size = Vector2(28, 21)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxj6a"]
+size = Vector2(20.8546, 25.5361)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfglu"]
+size = Vector2(26, 22)
 
 [node name="Hyena" type="CharacterBody2D"]
 collision_layer = 4
@@ -160,7 +164,6 @@ libraries = {
 }
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_hpjcr")
 
@@ -169,7 +172,6 @@ shape = SubResource("RectangleShape2D_hpjcr")
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="PlayerSensor" parent="Hitboxes" instance=ExtResource("3_n75nn")]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape" parent="Hitboxes/PlayerSensor" index="0"]
@@ -177,20 +179,29 @@ shape = SubResource("RectangleShape2D_j612e")
 debug_color = Color(0.956863, 0, 0.541176, 0.419608)
 
 [node name="AttackSensor" parent="Hitboxes" instance=ExtResource("3_n75nn")]
-visible = false
 collision_mask = 2
 
 [node name="CollisionShape" parent="Hitboxes/AttackSensor" index="0"]
 shape = SubResource("RectangleShape2D_u3jpx")
-debug_color = Color(0.941176, 0, 0, 0.419608)
+debug_color = Color(0, 0.564706, 0.643137, 0.419608)
 
-[node name="MobsHitbox" parent="Hitboxes" instance=ExtResource("4_fbpm3")]
+[node name="Hurtbox" parent="Hitboxes" instance=ExtResource("4_pwkfg")]
+scale = Vector2(1.7824, 1.10071)
+entity = "mobs"
+
+[node name="CollisionShape" parent="Hitboxes/Hurtbox" index="0"]
+position = Vector2(0.793516, -0.0489681)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_cxj6a")
+debug_color = Color(0.972549, 0, 0, 0.419608)
+
+[node name="Hitbox" parent="Hitboxes" instance=ExtResource("4_fbpm3")]
 entity = "mobs"
 damage = 5
 
-[node name="CollisionShape" parent="Hitboxes/MobsHitbox" index="0"]
-position = Vector2(2, 0.5)
-shape = SubResource("RectangleShape2D_nf1lj")
+[node name="CollisionShape" parent="Hitboxes/Hitbox" index="0"]
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_gfglu")
 
 [node name="Timers" type="Node2D" parent="."]
 
@@ -209,7 +220,9 @@ one_shot = true
 [connection signal="body_entered" from="Hitboxes/AttackSensor" to="." method="_on_attack_sensor_body_entered"]
 [connection signal="body_exited" from="Hitboxes/AttackSensor" to="." method="_on_attack_sensor_body_exited"]
 [connection signal="timeout" from="Timers/ChaseDelayTimer" to="." method="_on_chase_delay_timer_timeout"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
 
 [editable path="Hitboxes/PlayerSensor"]
 [editable path="Hitboxes/AttackSensor"]
-[editable path="Hitboxes/MobsHitbox"]
+[editable path="Hitboxes/Hurtbox"]
+[editable path="Hitboxes/Hitbox"]

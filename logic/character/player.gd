@@ -19,7 +19,7 @@ var was_on_air: bool = false
 @onready var sprite: Sprite2D = $Sprite
 @onready var remote_camera: RemoteTransform2D = $RemoteCamera
 @onready var health: HealthSystem = $HealthController
-@onready var hitbox: Hitbox = $Hitboxes/PlayerHitbox
+@onready var hurtbox: Hurtbox = $Hitboxes/Hurtbox
 @onready var invincible_timer: Timer = $Timers/InvincibleTimer
 
 func _physics_process(delta) -> void:
@@ -167,15 +167,13 @@ func _on_sensor_detect(area: Area2D) -> void:
 	if area is Coin:
 		Playerdata.collect_coin(1)
 
-func _on_player_hitbox_area_entered(area: Area2D) -> void:
-	if area.entity == 'mobs' && invincible_timer.is_stopped():
+func _on_hurtbox_area_entered(hitbox: Hitbox) -> void:
+	if hitbox.entity == 'mobs' && invincible_timer.is_stopped():
 		if health.current_hp > 0:
-			health.current_hp -= area.damage
+			health.current_hp -= hitbox.damage
 			if health.current_hp > 0:
 				emit_signal('invincible')
 
-# When player health is zero
-# 
 func _on_health_depleted() -> void:
 	state = null
 	animation_player.play('death')
@@ -188,3 +186,4 @@ func _on_invincible() -> void:
 
 func _on_invincible_timer_timeout() -> void:
 	effect_player.play('RESET')
+

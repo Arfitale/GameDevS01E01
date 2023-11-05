@@ -4,14 +4,8 @@
 
 [node name="Hitbox" type="Area2D"]
 collision_layer = 8
-collision_mask = 8
+collision_mask = 16
 script = ExtResource("1_fkbxe")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-
-[node name="TriggerDelay" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="timeout" from="TriggerDelay" to="." method="_on_trigger_delay_timeout"]
+debug_color = Color(1, 1, 1, 0.419608)
