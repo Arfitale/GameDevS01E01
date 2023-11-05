@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cx27lswqgb1tt"]
+[gd_scene load_steps=19 format=3 uid="uid://cx27lswqgb1tt"]
 
 [ext_resource type="Script" path="res://logic/character/hyena.gd" id="1_4gdyk"]
 [ext_resource type="Texture2D" uid="uid://cm7kjtk2oqt7k" path="res://store/character/hyena_packed.png" id="2_cvjhc"]
@@ -124,11 +124,28 @@ tracks/0/keys = {
 "values": [24, 25, 25, 26, 27, 29]
 }
 
+[sub_resource type="Animation" id="Animation_hki7j"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_liulh"]
 _data = {
 "RESET": SubResource("Animation_nj0tn"),
 "basic_attack_left": SubResource("Animation_850tv"),
 "basic_attack_right": SubResource("Animation_5yc70"),
+"death": SubResource("Animation_hki7j"),
 "idle": SubResource("Animation_aaotv"),
 "run": SubResource("Animation_b8bue")
 }
@@ -156,7 +173,7 @@ script = ExtResource("1_4gdyk")
 texture = ExtResource("2_cvjhc")
 hframes = 6
 vframes = 5
-frame = 11
+frame = 17
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -164,12 +181,14 @@ libraries = {
 }
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_hpjcr")
 
 [node name="Camera" type="Camera2D" parent="."]
 
 [node name="Hitboxes" type="Node2D" parent="."]
+visible = false
 
 [node name="PlayerSensor" parent="Hitboxes" instance=ExtResource("3_n75nn")]
 collision_mask = 2

@@ -17,6 +17,7 @@ var detector_data: Dictionary = {'playerSensor': null, 'attackSensor': null}
 @onready var sprite: Sprite2D = $Sprite
 @onready var chase_delay_timer: Timer = $Timers/ChaseDelayTimer
 @onready var basic_attack_delay_timer: Timer = $Timers/BasicAttackDelayTimer
+@onready var hitboxes: Node2D = $Hitboxes
 
 func _physics_process(delta: float) -> void:
 	match _state:
@@ -89,4 +90,6 @@ func _on_chase_delay_timer_timeout() -> void:
 		_state = hyena_state.CHASE
 
 func _on_health_depleted() -> void:
-	pass # Replace with function body.
+	_state = null
+	hitboxes.queue_free()
+	animation_player.play('death')
