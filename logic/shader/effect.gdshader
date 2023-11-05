@@ -1,13 +1,14 @@
 shader_type canvas_item;
 
-uniform bool white_color_effect = false;
+uniform bool hit_effect = false;
+uniform vec3 hit_color: source_color;
 
 void fragment() {
 	vec4 previous_color = texture(TEXTURE, UV);
-	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 hit_color_effect = vec4(hit_color.r, hit_color.g, hit_color.b, previous_color.a);
 	
-	if (white_color_effect) {
-		COLOR = white_color;
+	if (hit_effect) {
+		COLOR = hit_color_effect;
 	} else {
 		COLOR = previous_color;	
 	}
