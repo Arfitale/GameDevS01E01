@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://7b54mr5josvu"]
+[gd_scene load_steps=25 format=3 uid="uid://7b54mr5josvu"]
 
 [ext_resource type="Texture2D" uid="uid://cvuc6kmtcmk35" path="res://store/character/biker_packed.png" id="1_4mf2g"]
 [ext_resource type="Script" path="res://logic/character/player.gd" id="1_6nd4r"]
@@ -218,9 +218,26 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_tsuih"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36, 37]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yg8xw"]
 _data = {
 "RESET": SubResource("Animation_0etrq"),
+"death": SubResource("Animation_tsuih"),
 "fall": SubResource("Animation_27s0n"),
 "idle": SubResource("Animation_pg8v8"),
 "idle_left": SubResource("Animation_vbcnl"),
@@ -279,6 +296,7 @@ size = Vector2(20, 31)
 size = Vector2(16, 31)
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(1, 0.961988)
 collision_layer = 2
 script = ExtResource("1_6nd4r")
 
@@ -303,14 +321,12 @@ libraries = {
 }
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_21p5o")
 
 [node name="Hitboxes" type="Node2D" parent="."]
 
 [node name="ObjectSensor" parent="Hitboxes" instance=ExtResource("3_xbsqm")]
-visible = false
 collision_mask = 1
 
 [node name="CollisionShape" parent="Hitboxes/ObjectSensor" index="0"]

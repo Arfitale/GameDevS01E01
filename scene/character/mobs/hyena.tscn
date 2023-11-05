@@ -186,7 +186,7 @@ debug_color = Color(0.941176, 0, 0, 0.419608)
 
 [node name="MobsHitbox" parent="Hitboxes" instance=ExtResource("4_fbpm3")]
 entity = "mobs"
-damage = 1
+damage = 5
 
 [node name="CollisionShape" parent="Hitboxes/MobsHitbox" index="0"]
 position = Vector2(2, 0.5)

@@ -3,7 +3,7 @@ class_name Player
 
 signal invincible
 
-enum player_state {IDLE, RUN, JUMP, FALL}
+enum player_state {IDLE, RUN, JUMP, FALL, DEATH}
 const state_debug = {0: 'Idle', 1: 'Run', 2: 'Jump', 3: 'Fall'}
 
 var gravity: float = 980.0
@@ -128,6 +128,9 @@ func state_fall(delta: float) -> void:
 			# set was_on_air to false directly because player try to run on land state after fall
 		was_on_air = false
 
+func state_death() -> void:
+	await animation_player.animation_finished
+
 func is_face_right(_horizon_direction: int) -> bool:
 	return true if _horizon_direction > 0 else false 
 
@@ -166,11 +169,18 @@ func _on_sensor_detect(area: Area2D) -> void:
 
 func _on_player_hitbox_area_entered(area: Area2D) -> void:
 	if area.entity == 'mobs' && invincible_timer.is_stopped():
-		emit_signal('invincible')
-		health.current_hp -= area.damage
+		if health.current_hp > 0:
+			health.current_hp -= area.damage
+			if health.current_hp > 0:
+				emit_signal('invincible')
 
+# When player health is zero
+# 
 func _on_health_depleted() -> void:
-	queue_free()
+	state = null
+	animation_player.play('death')
+	$CollisionShape.set_deferred('disabled', true)
+	await animation_player.animation_finished
 
 func _on_invincible() -> void:
 	invincible_timer.start()
