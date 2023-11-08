@@ -18,6 +18,5 @@ func set_current_hp(new_hp: int) -> void:
 	if current_hp == 0:
 		emit_signal('depleted')
 
-
 func _on_show_timer_timeout() -> void:
 	health_bar.visible = false

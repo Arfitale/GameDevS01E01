@@ -89,9 +89,17 @@ next_level = ExtResource("7_xjej0")
 [node name="Hyena" parent="WorldLayer/World" instance=ExtResource("8_8drwt")]
 position = Vector2(984, 274)
 
+[node name="Hyena2" parent="WorldLayer/World" instance=ExtResource("8_8drwt")]
+position = Vector2(497, 270)
+
+[node name="Hyena3" parent="WorldLayer/World" instance=ExtResource("8_8drwt")]
+position = Vector2(311, 267)
+
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="GameUI" parent="UILayer" instance=ExtResource("8_53pjr")]
 
 [editable path="WorldLayer/World/PlayerNode/Player"]
-[editable path="WorldLayer/World/PlayerNode/Player/Collisions/ObjectSensor"]
+[editable path="WorldLayer/World/PlayerNode/Player/Hitboxes/ObjectSensor"]
+[editable path="WorldLayer/World/PlayerNode/Player/Hitboxes/Hurtbox"]
+[editable path="WorldLayer/World/PlayerNode/Player/Hitboxes/BasicAttackHitbox"]

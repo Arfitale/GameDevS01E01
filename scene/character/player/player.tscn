@@ -14,7 +14,7 @@ shader_parameter/hit_effect = false
 shader_parameter/hit_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dofqk"]
-size = Vector2(8, 6.23709)
+size = Vector2(15.3125, 6.23709)
 
 [sub_resource type="Animation" id="Animation_0etrq"]
 length = 0.001
@@ -63,7 +63,7 @@ tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [Vector2(0, 0)]
 }
 tracks/4/type = "value"
@@ -231,6 +231,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [56, 57, 58, 59]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vbcnl"]
 resource_name = "idle_left"
@@ -305,6 +317,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [64, 65]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_cy17b"]
 resource_name = "land"
@@ -349,6 +373,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_w4ccl"]
 resource_name = "run_right"
@@ -376,6 +412,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitboxes/BasicAttackHitbox/CollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yg8xw"]
@@ -467,10 +515,12 @@ libraries = {
 }
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_21p5o")
 
 [node name="Hitboxes" type="Node2D" parent="."]
+visible = false
 
 [node name="ObjectSensor" parent="Hitboxes" instance=ExtResource("5_ewjwg")]
 collision_mask = 1
@@ -490,6 +540,8 @@ shape = SubResource("RectangleShape2D_wgm8f")
 debug_color = Color(0.968627, 0, 0, 0.419608)
 
 [node name="BasicAttackHitbox" parent="Hitboxes" instance=ExtResource("7_cueiy")]
+entity = "player"
+damage = 5
 
 [node name="CollisionShape" parent="Hitboxes/BasicAttackHitbox" index="0"]
 shape = SubResource("RectangleShape2D_dofqk")

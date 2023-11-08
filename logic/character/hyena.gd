@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal player_detected
 signal take_damage
 
-enum hyena_state {IDLE, CHASE, WANDER, ATTACK}
+enum hyena_state {IDLE, CHASE, WANDER, ATTACK, DEATH}
 
 var move_speed: float = 150.0
 var gravity: float = 980.0
@@ -18,6 +18,7 @@ var detector_data: Dictionary = {'playerSensor': null, 'attackSensor': null}
 @onready var chase_delay_timer: Timer = $Timers/ChaseDelayTimer
 @onready var basic_attack_delay_timer: Timer = $Timers/BasicAttackDelayTimer
 @onready var hitboxes: Node2D = $Hitboxes
+@onready var health: HealthSystem = $Health
 
 func _physics_process(delta: float) -> void:
 	match _state:
@@ -59,7 +60,7 @@ func state_attack(_delta: float) -> void:
 	move_and_slide()
 	
 	# Exit state
-	if !detector_data['attackSensor']:
+	if !detector_data['attackSensor'] && health.current_hp > 0:
 		if detector_data['playerSensor']:
 			_state = hyena_state.CHASE
 		else:
@@ -71,12 +72,12 @@ func on_entity_detected(body: Node2D) -> void:
 		chase_delay_timer.start()
 
 func on_entity_exited(body: Node2D) -> void:
-	if body is Player:
+	if body is Player && health.current_hp > 0:
 		detector_data['playerSensor'] = null
 		_state = hyena_state.IDLE
 
 func _on_attack_sensor_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is Player && health.current_hp > 0:
 		detector_data['attackSensor'] = body
 		_state = hyena_state.ATTACK
 
@@ -93,3 +94,7 @@ func _on_health_depleted() -> void:
 	_state = null
 	hitboxes.queue_free()
 	animation_player.play('death')
+
+func _on_hurtbox_area_entered(hitbox: Hitbox) -> void:
+	if hitbox.entity == 'player':
+		health.current_hp -= hitbox.damage
