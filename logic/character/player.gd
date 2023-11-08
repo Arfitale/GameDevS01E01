@@ -3,8 +3,7 @@ class_name Player
 
 signal invincible
 
-enum player_state {IDLE, RUN, JUMP, FALL, DEATH}
-const state_debug = {0: 'Idle', 1: 'Run', 2: 'Jump', 3: 'Fall'}
+enum player_state {IDLE, RUN, JUMP, FALL, DEATH, BASIC_ATTACK}
 
 var gravity: float = 980.0
 var speed: float = 200.0
@@ -24,11 +23,13 @@ var was_on_air: bool = false
 
 func _physics_process(delta) -> void:
 	match state:
+		# MOVE STATE
 		player_state.IDLE: state_idle(delta)
 		player_state.RUN: state_run(delta)
 		player_state.JUMP: state_jump(delta)
 		player_state.FALL: state_fall(delta)
-
+		player_state.BASIC_ATTACK: state_basicattack()
+		
 func state_idle(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
 	direction.x = get_x_direction()
@@ -38,11 +39,16 @@ func state_idle(delta: float) -> void:
 		return handle_fall_state()
 	
 	if direction.x == 0:
+		
+		if is_on_floor() && Input.is_action_just_pressed('basic_attack'):
+			state = player_state.BASIC_ATTACK
+		
 		if was_on_air:
 			animation_player.play('land')
 			await animation_player.animation_finished
 			was_on_air = false
-		else: animation_player.play('idle')
+		else:
+			animation_player.play('idle')
 		
 	# Exit state to Run state
 	else: 
@@ -53,7 +59,7 @@ func state_idle(delta: float) -> void:
 		jump()
 	
 	move_and_slide()
-
+	
 func state_run(delta: float) -> void:
 	var direction: Vector2 = Vector2.ZERO
 	direction.x = get_x_direction()
@@ -130,6 +136,22 @@ func state_fall(delta: float) -> void:
 
 func state_death() -> void:
 	await animation_player.animation_finished
+
+func state_basicattack() -> void:
+	var current_dir: int = -1 if sprite.flip_h else 1
+	if current_dir > 0: 
+		animation_player.play('basic_attack_right')
+	else: 
+		animation_player.play('basic_attack_left')
+	
+	if get_x_direction() != 0:
+		state = player_state.RUN
+	
+	if Input.is_action_just_pressed('jump'):
+		jump()
+	
+	await animation_player.animation_finished
+	state = player_state.IDLE
 
 func is_face_right(_horizon_direction: int) -> bool:
 	return true if _horizon_direction > 0 else false 

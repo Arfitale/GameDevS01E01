@@ -90,6 +90,22 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_hki7j"]
+resource_name = "death"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
 [sub_resource type="Animation" id="Animation_aaotv"]
 resource_name = "idle"
 length = 0.4
@@ -122,22 +138,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [24, 25, 25, 26, 27, 29]
-}
-
-[sub_resource type="Animation" id="Animation_hki7j"]
-resource_name = "death"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_liulh"]
@@ -210,7 +210,6 @@ entity = "mobs"
 
 [node name="CollisionShape" parent="Hitboxes/Hurtbox" index="0"]
 position = Vector2(0.793516, -0.0489681)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_cxj6a")
 debug_color = Color(0.972549, 0, 0, 0.419608)
 
