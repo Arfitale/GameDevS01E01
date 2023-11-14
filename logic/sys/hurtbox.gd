@@ -17,3 +17,6 @@ func _on_area_entered(hitbox: Hitbox) -> void:
 
 func _on_trigger_delay_timeout() -> void:
 	_monitoring_refresh()
+
+func _disable_monitoring() -> void:
+	set_deferred('monitoring', false)

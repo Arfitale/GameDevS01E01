@@ -40,7 +40,7 @@ func state_idle(delta: float) -> void:
 	
 	if direction.x == 0:
 		
-		if is_on_floor() && Input.is_action_just_pressed('basic_attack'):
+		if is_on_floor() && Input.is_action_just_pressed('basic_attack') && can_attack():
 			state = player_state.BASIC_ATTACK
 		
 		if was_on_air:
@@ -199,8 +199,8 @@ func _on_hurtbox_area_entered(hitbox: Hitbox) -> void:
 func _on_health_depleted() -> void:
 	state = null
 	animation_player.play('death')
-	$CollisionShape.set_deferred('disabled', true)
 	await animation_player.animation_finished
+	state = null
 
 func _on_invincible() -> void:
 	invincible_timer.start()
@@ -209,3 +209,8 @@ func _on_invincible() -> void:
 func _on_invincible_timer_timeout() -> void:
 	effect_player.play('RESET')
 
+func _disable_collision() -> void:
+	$CollisionShape.set_deferred('disabled', true)
+
+func can_attack() -> bool:
+	return true if health.current_hp > 0 else false
